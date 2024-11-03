@@ -21,16 +21,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import bxm.common.annotaion.BxmCategory;
-
-/**
- * Hello Controller
- *
- * @author sysadmin
- */
-@RestController
-@RequestMapping("/")
-@BxmCategory(logicalName = "JavaLib", description = "JavaLib", author = "sysadmin")
 public class JavaLib {
 
 	private static Logger logger = LoggerFactory.getLogger(JavaLib.class);
@@ -40,7 +30,6 @@ public class JavaLib {
 		new JavaLib().retrieveMostUsedLib();
 	}
 
-    @BxmCategory(logicalName="retrieveMostUsedLib", description="retrieveMostUsedLib", author="sysadmin")
     public void retrieveMostUsedLib() throws URISyntaxException {
         // URI 생성
         String baseUrl = "https://libraries.io/api/search?";
