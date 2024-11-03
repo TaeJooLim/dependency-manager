@@ -24,28 +24,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-import bxm.common.annotaion.BxmCategory;
-
-/**
- * Hello Controller
- *
- * @author sysadmin
- */
-@RestController
-@RequestMapping("/")
-@BxmCategory(logicalName = "Hello Controller", description = "Hello Controller", author = "sysadmin")
 public class PythonLib {
 
 	private static Logger logger = LoggerFactory.getLogger(PythonLib.class);
 
-	@BxmCategory(logicalName = "main", description = "main", author = "sysadmin")
 	public static void main(String[] args) throws URISyntaxException {
 		Set<String> libSet = new PythonLib().retrieveMostUsedLib();
 		Set<String> verSet = new PythonLib().retrieveStableVersion(libSet);
 		new PythonLib().writeDependencies(verSet);
 	}
 
-    @BxmCategory(logicalName="retrieveMostUsedLib", description="retrieveMostUsedLib", author="sysadmin")
     public Set<String> retrieveMostUsedLib() throws URISyntaxException {
         // URI 생성
         String baseUrl = "https://libraries.io/api/search?";
@@ -95,7 +83,6 @@ public class PythonLib {
         return libSet;
     }
 
-	@BxmCategory(logicalName = "retrieveStableVersion", description = "retrieveStableVersion", author = "sysadmin")
 	public Set<String> retrieveStableVersion(Set<String> libSet) throws URISyntaxException {
 		String baseUrl = "https://api.pepy.tech/api/v2/projects/";
 
@@ -167,7 +154,6 @@ public class PythonLib {
 		return verSet;
 	}
 
-	@BxmCategory(logicalName = "writeDependencies", description = "writeDependencies", author = "sysadmin")
 	public void writeDependencies(Set<String> verSet) {
 	    // python-dependencies.txt 파일에 verSet 내용 쓰기
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\lib-test\\python-dependencies.txt"))) {
