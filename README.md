@@ -13,13 +13,20 @@ Build: Gradle
 
 ## 프로세스
 1.libraries.io에서 가장 많이 사용되는 순으로 라이브러리 명을 조회 (Java: Maven / Python: Pypi / NPM: NPM)
+
 2.각 언어별 가장 Stable한 버전을 조회 (Java: BOM / Python: Pepy / NPM: NPM)
+
 3.각 언어별 라이브러리와 버전을 매핑한 결과를 파일로 생성 후 다운로드 프로세스 실행
+
 +Java: maven-dependencies.json > build.gradle > gradle build
+
 +Python: python-dependencies.txt > pip install -d
+
 +NPM: webpack.json > yarn build
 
 ## 프로그램 사용방법
 1.JDK8을 설치한다.
+
 2.java -jar dependency-manager/build/libs/dependency-manager-all.jar 커맨드 실행
+
 3.원하는 프로세스의 파라미터를 입력(1,2,3)
