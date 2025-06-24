@@ -1,0 +1,77 @@
+// plugins
+plugins {
+    id 'java'
+}
+
+// JSON 파일을 읽고 의존성 목록을 파싱하기 위한 라이브러리
+import groovy.json.JsonSlurper
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+// repositories
+repositories {
+    mavenCentral()  // jcenter는 종료되어 mavenCentral 사용
+}
+
+dependencies {
+    // JSON 파일에서 가져온 의존성 목록을 추가
+    def jsonFile = file('../maven-dependencies.json')
+    def jsonSlurper = new JsonSlurper()
+    def dependenciesJson = jsonSlurper.parse(jsonFile)
+
+    dependenciesJson.dependencies.each { dep ->
+        implementation dep
+    }
+}
+
+task downloadJarDependencies(type: Copy) {
+    from configurations.compileClasspath
+    into 'jar'
+}
+
+task downloadPomDependencies {
+    doLast {
+        configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            def jarFile = artifact.file.name
+            def pomFile = jarFile.replace('.jar', '.pom')
+            def groupPath = artifact.moduleVersion.id.group.replaceAll('\\.', '/')
+            
+            def url = "https://repo.maven.apache.org/maven2/${groupPath}/${artifact.moduleVersion.id.name}/${artifact.moduleVersion.id.version}"
+            def pomUrl = "${url}/${pomFile}"
+            logger.info(pomUrl)
+
+            // 해당 JAR 파일의 POM 파일 다운로드
+            def outputFile = new File(projectDir, "pom/${pomFile}")
+            outputFile.parentFile.mkdirs() // 디렉토리 생성
+
+            try {
+                // URL 접속 확인
+                def connection = new URL(pomUrl).openConnection()
+                connection.connectTimeout = 5000
+                connection.readTimeout = 5000
+
+                // POM 파일 존재 여부 확인
+                if (connection.responseCode == 200) {
+                    connection.inputStream.withCloseable { inputStream ->
+                        outputFile.withOutputStream { outputStream ->
+                            outputStream << inputStream
+                        }
+                    }
+                    logger.lifecycle("Downloaded: ${outputFile.path}")
+                } else {
+                    logger.warn("POM file not found at: $pomUrl (HTTP ${connection.responseCode})")
+                }
+            } catch (Exception e) {
+                logger.warn("Failed to download POM file for ${artifact.moduleVersion.id.name}: ${e.message}")
+            }
+        }
+    }
+}
+
+task downloadAllDependencies(dependsOn: ['downloadJarDependencies', 'downloadPomDependencies']) {
+    // 모든 의존성 다운로드 작업을 실행
+}
