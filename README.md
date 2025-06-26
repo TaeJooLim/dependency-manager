@@ -53,12 +53,12 @@ DevOps 업무를 하다 보면 폐쇄망 환경에서는 외부 저장소(jcente
 4. JDK 17 이상을 설치합니다.  
 5. 프로젝트 디렉터리로 이동합니다:  
    ```bash
-   cd 설치폴더```
+   cd 설치폴더
 6.dependency-manager를 실행하고 프로세스를 선택합니다:
    ```bash
    java -jar dependencymanager.jar
    Hello World!
-   실행할 클래스를 선택하세요 (1: JavaLib, 2: NpmLib, 3: PythonLib):```
+   실행할 클래스를 선택하세요 (1: JavaLib, 2: NpmLib, 3: PythonLib):
 7.선택한 언어에 따라 아래 명령어를 실행합니다:
    ###JAVA
    ```bash
