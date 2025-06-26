@@ -58,28 +58,29 @@ DevOps 업무를 하다 보면 폐쇄망 환경에서는 외부 저장소(jcente
    ```bash
    java -jar dependencymanager.jar
    Hello World!
-   실행할 클래스를 선택하세요 (1: JavaLib, 2: NpmLib, 3: PythonLib):
+   실행할 클래스를 선택하세요 (1: JavaLib, 2: NpmLib, 3: PythonLib)
+
 7.선택한 언어에 따라 아래 명령어를 실행합니다:
    ###JAVA
    ```bash
    cd java
-   gradle downloadAllDependencies```
+   gradle downloadAllDependencies
 
    ###NPM
    ```bash
    cd npm
    node merge-package.js
-   yarn install```
+   yarn install
 
    ###Python 다운로드
    ```bash
    cd python
-   sh download-to-local.sh```
+   sh download-to-local.sh
 
    ###Python 업로드(선택사항)
    ```bash
    cd python
-   sh upload-to-maven.sh```
+   sh upload-to-maven.sh
 
 ## 📌 저장소
 
