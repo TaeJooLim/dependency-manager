@@ -56,7 +56,7 @@ DevOps 업무를 하다 보면 폐쇄망 환경에서는 외부 저장소(jcente
    cd 설치폴더
    
 6.dependency-manager를 실행하고 프로세스를 선택합니다:
-   ```bash
+   ``bash
    java -jar dependencymanager.jar
 
    ```bash
