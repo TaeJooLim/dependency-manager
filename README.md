@@ -67,26 +67,26 @@ DevOps 업무를 하다 보면 폐쇄망 환경에서는 외부 저장소(jcente
    ```
 
 7.선택한 언어에 따라 아래 명령어를 실행합니다:
-   ###JAVA
+   ### JAVA
    ```bash
    cd java
    gradle downloadAllDependencies
    ```
 
-   ###NPM
+   ### NPM
    ```bash
    cd npm
    node merge-package.js
    yarn install
    ```
 
-   ###Python 다운로드
+   ### Python 다운로드
    ```bash
    cd python
    sh download-to-local.sh
    ```
 
-   ###Python 업로드(선택사항)
+   ### Python 업로드(선택사항)
    ```bash
    cd python
    sh upload-to-maven.sh
